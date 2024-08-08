@@ -11,7 +11,7 @@ const app = express();
 app.use(cors())
 const port = 3000;
 
-// Conectar ao MongoDB
+
 connectDB();
 
 const allowCrossDomain = (req, res, next) => {
@@ -21,16 +21,13 @@ const allowCrossDomain = (req, res, next) => {
   next();
 };
 
-// Middleware
 app.use(bodyParser.json());
 app.use(allowCrossDomain);
 
-// Usar as rotas
 app.use('/items', itemRoutes);
 app.use('/players', playerRoutes);
 app.use('/matches', matchRoutes);
 
-// Iniciar o servidor
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
