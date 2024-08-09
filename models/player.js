@@ -17,6 +17,18 @@ const playerSchema = new mongoose.Schema({
   level: {
     type: Number
   },
+  matchesCount: {
+    type: Number
+  },
+  win: {
+    type: Number
+  },
+  loss: {
+    type: Number
+  },
+  how_baiter: {
+    type: Number
+  },
   id_gc: {
     type: String,
     required: true

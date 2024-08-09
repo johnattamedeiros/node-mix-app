@@ -68,20 +68,31 @@ const fetchAndStoreMatchData = async () => {
                 }
                 statObject[statToSet] = valueToSet;
             }
+
+            
+            statObject.matchesCount = data.matches.matches;
+            statObject.win = data.matches.wins;
+            statObject.loss = data.matches.loss;
+
+            const baiterCalc = (statObject["FK"] / statObject.matchesCount) +  (statObject["Morreu"] / statObject.matchesCount);
+            statObject.how_baiter = baiterCalc;
             await Player.findByIdAndUpdate(player._id, statObject, { new: true, runValidators: true });
             
-            for (const match of data.monthMatches) {
-                const newMatch = new Match({
-                    id_gc: player.id_gc,
-                    matchData: match
-                });
 
-                if (BigInt(match.id) > BigInt(player.id_last_match)) {
-                    console.log('Saving match ' + match.id);
-                    await newMatch.save();
-                    await Player.findByIdAndUpdate(player._id, { id_last_match: match.id }, { new: true, runValidators: true });
-                }
-            }
+            //Busca de partidas inativas por enquanto - Teria que pegar somente o id da partida e fazer a chamada na API por partida
+            //para trazer todos os dados da partida, não vem dados relevantes o suficiente nesta primeira busca
+            // for (const match of data.monthMatches) {
+            //     const newMatch = new Match({
+            //         id_gc: player.id_gc,
+            //         matchData: match
+            //     });
+
+            //     if (BigInt(match.id) > BigInt(player.id_last_match)) {
+            //         console.log('Saving match ' + match.id);
+            //         await newMatch.save();
+            //         await Player.findByIdAndUpdate(player._id, { id_last_match: match.id }, { new: true, runValidators: true });
+            //     }
+            // }
         }
         console.log('All players updated data. Total: ' + players.length);
     } catch (error) {

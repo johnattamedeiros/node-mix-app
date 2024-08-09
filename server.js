@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const connectDB = require('./db');
 const playerRoutes = require('./routes/players');
-const matchRoutes = require('./routes/matches');
+//const matchRoutes = require('./routes/matches');
 var cors = require('cors')
 const fetchAndStoreMatchData = require('./scheduler');
 
@@ -25,7 +25,7 @@ app.use(allowCrossDomain);
 
 
 app.use('/players', playerRoutes);
-app.use('/matches', matchRoutes);
+//app.use('/matches', matchRoutes);
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

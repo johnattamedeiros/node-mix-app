@@ -74,6 +74,19 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/stat', async (req, res) => {
+    try {
+        const jsonQuery = {};
+        jsonQuery[req.query.sort] = req.query.order === "desc" ? -1 : 1;
+
+        const players = await Player.find().sort(jsonQuery).limit(3);
+
+        res.json(players);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+});
+
 
 router.get('/update', async (req, res) => {
     try {
@@ -113,27 +126,6 @@ router.get('/update', async (req, res) => {
 
         }
         res.status(200).json({ success: "Database updated" });
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-});
-
-router.put('/:id', async (req, res) => {
-    try {
-        const player = await Player.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!player) return res.status(404).json({ error: 'Player not found' });
-        res.json(player);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-});
-
-
-router.delete('/:id', async (req, res) => {
-    try {
-        const player = await Player.findByIdAndDelete(req.params.id);
-        if (!player) return res.status(404).json({ error: 'Player not found' });
-        res.status(204).end();
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
