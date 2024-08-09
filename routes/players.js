@@ -40,10 +40,7 @@ router.post('/', async (req, res) => {
                 const player = new Player({
                     nick: data.playerInfo.nick,
                     level: data.playerInfo.level,
-                    id_steam: req.body.id_steam,
-                    id_gc: req.body.id_gc,
-                    url_photo: req.body.url_photo,
-                    url_gc_level: req.body.url_gc_level
+                    id_gc: req.body.id_gc
                 });
                 await player.save();
                 res.status(201).json(player);
