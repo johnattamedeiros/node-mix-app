@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const connectDB = async () => {
   try {
-    const uri = process.env.MONGO_URI || 'mongodb://177.153.51.71:27017/mydatabase';
+    console.log(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@177.153.51.71:27017/mydatabase?authSource=admin`);
+    const uri = process.env.MONGO_URI || `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@177.153.51.71:27017/mydatabase?authSource=admin`;
     await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true
