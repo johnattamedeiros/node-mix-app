@@ -26,6 +26,46 @@ const playerSchema = new mongoose.Schema({
   },
   url_gc_level: {
     type: String
+  },
+  KDR: {
+    type: Number,
+    default: 0
+  },
+  ADR: {
+    type: Number,
+    default: 0
+  },
+  Matou: {
+    type: Number,
+    default: 0
+  },
+  Morreu: {
+    type: Number,
+    default: 0
+  },
+  KAST: {
+    type: Number,
+    default: 0
+  },
+  MK: {
+    type: Number,
+    default: 0
+  },
+  FK: {
+    type: Number,
+    default: 0
+  },
+  HS: {
+    type: Number,
+    default: 0
+  },
+  BP: {
+    type: Number,
+    default: 0
+  },
+  BD: {
+    type: Number,
+    default: 0
   }
 });
 

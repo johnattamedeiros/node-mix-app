@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const connectDB = require('./db');
-const itemRoutes = require('./routes/items');
 const playerRoutes = require('./routes/players');
 const matchRoutes = require('./routes/matches');
 var cors = require('cors')
@@ -24,7 +23,7 @@ const allowCrossDomain = (req, res, next) => {
 app.use(bodyParser.json());
 app.use(allowCrossDomain);
 
-app.use('/items', itemRoutes);
+
 app.use('/players', playerRoutes);
 app.use('/matches', matchRoutes);
 

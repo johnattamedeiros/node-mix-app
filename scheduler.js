@@ -1,5 +1,4 @@
 const cron = require('node-cron');
-//const fetch = require('node-fetch');
 const Match = require('./models/match');
 const Player = require('./models/player');
 
@@ -39,7 +38,38 @@ const fetchAndStoreMatchData = async () => {
 
             if (!response.ok) throw new Error('Gamersclub API not responding');
             const data = await response.json();
-            await Player.findByIdAndUpdate(player._id, { stat: data.stat }, { new: true, runValidators: true });
+
+
+            const statObject = {};
+            for (const stat of data.stat) {
+                statToSet = stat.stat;
+                valueToSet = stat.value;
+               
+                if (stat.stat === "KAST%") {
+                    statToSet = "KAST";
+                    if(stat.value) valueToSet = stat.value.slice(0, -1);
+                    
+                }
+                if (stat.stat === "Multi Kills") {
+                    statToSet = "MK";
+                }
+                if (stat.stat === "First kills") {
+                    statToSet = "FK";
+                }
+                if (stat.stat === "HS%") {
+                    statToSet = "HS";
+                    if(stat.value) valueToSet = stat.value.slice(0, -1);
+                }
+                if (stat.stat === "Bombas pla.") {
+                    statToSet = "BP";
+                }
+                if (stat.stat === "Bombas def.") {
+                    statToSet = "BD";
+                }
+                statObject[statToSet] = valueToSet;
+            }
+            await Player.findByIdAndUpdate(player._id, statObject, { new: true, runValidators: true });
+            
             for (const match of data.monthMatches) {
                 const newMatch = new Match({
                     id_gc: player.id_gc,
