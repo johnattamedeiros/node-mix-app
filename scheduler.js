@@ -132,6 +132,6 @@ const fetchAndStoreMatchData = async () => {
 
 };
 
-cron.schedule('*/1 * * * *', fetchAndStoreMatchData);
+cron.schedule('*/5 * * * *', fetchAndStoreMatchData);
 
 module.exports = fetchAndStoreMatchData;
